@@ -1,0 +1,82 @@
+!URxvt*termName: urxvt
+URxvt*tintColor:        white
+URxvt*foreground:       white
+URxvt*background:       black
+!URxvt*borderLess:      true
+
+URxvt*transparent:      true
+URxvt*fading:           40
+URxvt*fadeColour:       gray
+URxvt.depth: 32
+
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+URxvt*shading:          30
+!URxvt*blurRadius:       16x16
+
+URxvt*cursorColor:      red
+URxvt*cursorUnderline:  true
+
+URxvt*loginShell:       false
+
+URxvt*scrollBar:        false
+!URxvt*scrollBar_right: false
+
+!URxvt*inheritPixmap:	true
+!URxvt*geometry:		84x24
+
+URxvt*font: xft: Incosolata Mono:pixelsize=11
+URxvt*boldFont: xft: Monofur Mono:bold:pixelsize=12
+!URxvt*font: cmatrix:size=12x24
+
+URxvt*saveLines:32767
+
+URxvt*perl-ext-common:  default,matcher
+URxvt*urlLauncher:      /usr/bin/firefox
+URxvt*matcher.button:   1
+URxvt*colorUL: #4682B4
+
+URxvt*keysym.C-Delete:  perl:matcher:last
+URxvt*keysym.M-Delete:  perl:matcher:list
+
+!URxvt*perl-ext-common:  default,tabbed
+!URxvt*tabbed.tabbar-fg: 2
+!URxvt*tabbed.tabbar-bg: 0
+!URxvt*tabbed.tab-fg:    3
+
+URxvt*color0:      #000000
+URxvt*color1:      #A80000
+URxvt*color2:      #00A800
+URxvt*color3:      #A85400
+URxvt*color4:      #0000A8
+URxvt*color5:      #A800A8
+URxvt*color6:      #00A8A8
+URxvt*color7:      #A8A8A8
+URxvt*color8:      #545054
+URxvt*color9:      #F85450
+URxvt*color10:     #50FC50
+URxvt*color11:     #F2FC50
+URxvt*color12:     #F57A15
+URxvt*color13:     #F854F8
+URxvt*color14:     #50FCF8
+URxvt*color15:     #F8FCF8
+
+xpdf*enableFreetype:    yes
+xpdf*antialias:         yes
+xpdf*foreground:        black
+xpdf*background:        white
+xpdf*urlCommand:        /usr/bin/firefox %s
+
+! Emacs Confs
+!emacs.font: Inconsolata-12
+!Emacs.font: -xos4-terminus-medium-r-normal-*-14-*-*-*-*-*-*-*
+!Emacs.foreground: white
+!Emacs.background: black
+!Emacs.menuBar: off
+!Emacs.toolBar: off
+
+!Xft hinting
+Xft.dpi:                96
+Xft.hinting:            true
+Xft.hintstyle:          hintfull
+Xft.antialias:          rgba
+Xft.rgba:               rgb

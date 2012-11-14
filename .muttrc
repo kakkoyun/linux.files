@@ -1,0 +1,100 @@
+# A Simple Mutt Config for GMail by Kemal Akkoyun
+
+# Sets up mail box in your home folder
+
+set mbox_type=maildir
+set mbox="~/mail/inbox/"
+set spoolfile="~/mail/inbox/"
+set folder="~/mail/"
+set record="~/mail/sent/"
+set postponed="~/mail/postponed/"
+
+#Gmail account info
+set from = 'kakkoyun@gmail.com'
+set realname = 'Kemal Akkoyun'
+
+set imap_user = "kakkoyun@gmail.com"
+set imap_pass = ""
+
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+
+#My Editor
+
+set editor='your fav editor + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+
+#Folders
+
+#Remote Folders
+
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed ="+[Gmail]/Drafts"
+
+#Local Folders
+
+# set message_cachedir =~/.mutt/cache/bodies
+set certificate_file =~/.mutt/certificates
+
+#SMTP Setup
+
+set smtp_url = "smtp://kakkoyun@gmail.com@smtp.gmail.com:587/"
+set smtp_pass = ""
+
+#Special Keybindings
+
+bind editor <space> noop
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to Sent Mail"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index gx '<change-folder>=[Gmail]/Spam<enter>' 'Go to Spam'
+
+#Mutt Session Security
+
+set move = no  #Stop asking to "move read messages to mbox"!
+set imap_keepalive = 900
+
+# Colors
+
+color normal    white black
+color attachment brightyellow black
+color hdrdefault cyan black
+color indicator black cyan
+color markers    brightred black
+color quoted    green black
+color signature cyan black
+color status    brightgreen blue
+color tilde    blue black
+color tree    red black
+
+color index    red black ~D
+color index    magenta black ~T
+
+#color header    brightgreen black ^From:
+#color header    brightcyan black ^To:
+#color header    brightcyan black ^Reply-To:
+#color header    brightcyan black ^Cc:
+#color header    brightblue black ^Subject:
+
+# identifies email addresses
+color body    brightred black [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+
+# identifies URLs
+color body    brightblue black (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+
+# Sidebar
+set sidebar_width=20
+set sidebar_visible=yes
+set sidebar_delim='|'
+set sidebar_sort=yes
+color sidebar_new brightblue black# b toggles sidebar visibility
+macro index b 'toggle sidebar_visible'
+macro pager b 'toggle sidebar_visible'
+
+bind index \CP sidebar-prev
+bind index \CN sidebar-next
+bind index \CO sidebar-open
+bind pager \CP sidebar-prev
+bind pager \CN sidebar-next
+bind pager \CO sidebar-open
