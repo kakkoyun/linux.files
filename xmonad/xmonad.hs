@@ -208,11 +208,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- @rev
     -- Completely personal :)
-    , ((modMask .|. controlMask, xK_e  ), spawn "emacs")
+    , ((modMask .|. controlMask, xK_e  ), spawn "emacs-snapshot")
+    , ((modMask .|. shiftMask, xK_r  ), spawn "drracket")
     , ((modMask .|. controlMask, xK_f  ), spawn "firefox")
     -- , ((modMask .|. controlMask, xK_g  ), AL.launchApp defaultXPConfig "google-chrome")
     , ((modMask .|. controlMask, xK_g  ), spawn "google-chrome")
     , ((modMask .|. controlMask, xK_l  ), spawn "sublime")
+    , ((modMask .|. controlMask, xK_v  ), spawn "vlc")
     ]
     ++
     --
@@ -363,13 +365,15 @@ myManageHook = composeAll [ className =? "Chromium" --> doShift "β"
                , className =? "Iceweasel" --> doShift "β"
                , className =? "Emacs" --> doShift "γ"
                , className =? "Sublime" --> doShift "γ"
+               , className =? "DrRacket" --> doShift "γ"
                , className =? "Xpdf" --> doShift "δ"
                , className =? "Evince" --> doShift "δ"
+               , className =? "Vlc" --> doShift "ε"
                , resource =? "gpicview" --> doFloat
                , className =? "MPlayer" --> doFloat
                , resource =? "skype" --> doFloat
-               -- , className =? "VirtualBox" --> doShift "ζ"
-               -- , className =? "Xchat" --> doShift "ε"
+               -- , className =? "VirtualBox" --> doShift "η"
+               -- , className =? "Xchat" --> doShift "ζ"
                , resource  =? "kdesktop"       --> doIgnore
                ]
 
