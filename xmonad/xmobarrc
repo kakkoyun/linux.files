@@ -17,5 +17,5 @@ Config { font = "xft:Monofur-11:style=bold"
         ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#ee9a00>%date%</fc>| %LTBA%  %StdinReader% }{ <fc=#ff0000>%led%</fc>| %cpu%@%cpufreq% | %memory% %swap% | %wlan0% | %battery%"
+       , template = "<fc=#ee9a00>%date%</fc> %LTBA%|%StdinReader% }{ <fc=#ff0000>%led%</fc>| %cpu%@%cpufreq% | %memory% %swap% | %wlan0% | %battery%"
        }

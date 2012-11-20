@@ -208,10 +208,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- @rev
     -- Completely personal :)
-    , ((modMask .|. controlMask, xK_e  ), spawn "emacs-snapshot")
-    , ((modMask .|. shiftMask, xK_r  ), spawn "drracket")
-    , ((modMask .|. controlMask, xK_f  ), spawn "firefox")
     -- , ((modMask .|. controlMask, xK_g  ), AL.launchApp defaultXPConfig "google-chrome")
+    , ((modMask .|. controlMask, xK_e  ), spawn "emacsclient -c")
+    , ((modMask .|. controlMask, xK_d  ), spawn "drracket")
+    , ((modMask .|. controlMask, xK_f  ), spawn "firefox")
     , ((modMask .|. controlMask, xK_g  ), spawn "google-chrome")
     , ((modMask .|. controlMask, xK_l  ), spawn "sublime")
     , ((modMask .|. controlMask, xK_v  ), spawn "vlc")
@@ -464,6 +464,7 @@ myStartupHook = do safeSpawnProg "rxvt"
                    -- spawn "xscrensaver"
                    -- safeSpawnProg "bluetooth-applet"
                    spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
+                   spawn "emacs --daemon"
                    return ()
 
 synapticsConfig = [("CircularScrolling","1"),
