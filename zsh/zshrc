@@ -12,8 +12,12 @@ ZSH_THEME="smt_rev"
 # Aliases
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
+
 alias ed="emacs --daemon"
 alias e="emacsclient -c"
+alias et="emacsclient -t"
+alias vim="emacsclient -t"
+alias vi="emacsclient -t"
 
 alias ll="ls -l -h"
 alias la="ls -a"
