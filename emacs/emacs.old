@@ -1,0 +1,456 @@
+;; -*-Emacs-Lisp-*-
+
+;; Emacs Config
+;; Kemal Akkoyun
+;; Initialization Date: 13.11.12
+
+;; Load paths.
+(add-to-list 'load-path "~/.emacs.d/themes/")
+(add-to-list 'load-path "~/.emacs.d/bundles/")
+(add-to-list 'load-path "~/.emacs.d/bundles/company/")
+(add-to-list 'load-path "~/.emacs.d/bundles/django/")
+(add-to-list 'load-path "~/.emacs.d/bundles/ensime/elisp/")
+(add-to-list 'load-path "~/.emacs.d/plugins/")
+(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet")
+
+;; Load packages
+(require 'sr-speedbar)
+(require 'ensime)
+(require 'python-mode)
+(require 'ipython)
+(require 'lambda-mode)
+(require 'yasnippet)
+(require 'anything)
+(require 'anything-ipython)
+(require 'auto-complete-config)
+(require 'company)
+(require 'django-html-mode)
+(require 'django-mode)
+(require 'comint)
+(require 'python-pep8)
+(require 'python-pylint)
+(require 'highlight-indentation)
+(require 'yasnippet-bundle)
+
+;; Color themes Loads.
+(require 'color-theme)
+(require 'color-theme-subdued)
+(require 'color-theme-solarized)
+(require 'color-theme-gruber-darker)
+
+;; General Setup
+(setq default-major-mode 'text-mode)
+(setq display-time-24hr-format t)
+(setq scroll-preserve-screen-position 'keep)
+(setq user-mail-address "kakkoyun@gmail.com")
+(setq inhibit-startup-message t)
+(setq diff-switches "-c")
+(setq comment-style 'extra-line)
+(setq case-fold-search t)
+(setq read-file-name-completion-ignore-case t)
+(setq completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+(setq cursor-in-non-selected-windows nil)
+(setq mouse-yank-at-point t)
+(setq mouse-highlight t)
+(setq tab-width 4)
+(setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80))
+(setq indent-tabs-mode nil)
+(setq inhibit-splash-screen t)
+(setq delete-key-deletes-forward t)
+(setq transient-mark-mode t)
+(setq x-select-enable-clipboard t)
+(setq make-backup-files nil)
+(setq history-length 250)
+(setq speedbar-hide-button-brackets-flag t)
+(setq speedbar-show-unknown-files t)
+(setq speedbar-smart-directory-expand-flag t)
+(setq speedbar-use-images nil)
+(setq speedbar-frame-parameters
+      '((minibuffer)
+        (width . 40)
+        (border-width . 0)
+        (menu-bar-lines . 0)
+        (tool-bar-lines . 0)
+        (unsplittable . t)
+        (left-fringe . 0)))
+
+(custom-set-variables
+  '(column-number-mode t)
+  '(display-battery-mode t)
+  '(display-time-mode t)
+  '(frame-background-mode (quote light))
+  '(fringe-mode 0 nil (fringe))
+  '(load-home-init-file t t)
+  '(show-paren-mode t)
+  '(line-number-mode t)
+  '(xterm-mouse-mode t)
+  '(pc-selection-mode t)
+  '(global-font-lock-mode t)
+  '(global-hl-line-mode t)
+  '(tool-bar-mode nil)
+  '(menu-bar-mode nil)
+  '(scroll-bar-mode nil)
+  '(blink-cursor-mode nil)
+  '(yas/global-mode t)
+  '(global-company-mode nil)
+  '(speedbar-show-unknown-files t)
+  '(desktop-save-mode t)
+  '(sr-speedbar-right-side nil)
+  '(sr-speedbar-skip-other-window-p t)
+  '(sr-speedbar-max-width 20)
+  '(sr-speedbar-width-x 10)
+  '(sr-speedbar-width-console 40)
+  '(sr-speedbar-auto-refresh nil)
+ )
+
+(sr-speedbar-open)
+(windmove-default-keybindings)
+(ac-config-default)
+(autoload 'autopair-global-mode "autopair" nil t)
+(autopair-global-mode)
+(highlight-indentation-mode)
+(highlight-indentation-current-column-mode)
+
+;; Misc...
+(setq mark-even-if-inactive t)
+(setq visible-bell nil)
+(setq next-line-add-newlines nil)
+(setq compile-command "make")
+(setq suggest-key-bindings nil)
+(put 'eval-expression 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)
+(if (>= emacs-major-version 21)
+  (setq show-trailing-whitespace t))
+;; change with the color that you like
+;; for a list of colors: http://raebear.net/comp/emacscolors.html
+(set-face-background 'hl-line "gray20")
+
+
+;; Color theme use.
+(color-theme-initialize)
+(color-theme-subdued)
+;;(color-theme-blackboard)
+;;(color-theme-gruber-darker)
+;;(color-theme-solarized)
+
+(set-face-background 'highlight-indentation-face "gray20")
+(set-face-background 'highlight-indentation-current-column-face "gray25")
+
+;; Font-Set
+
+; Monospace
+; Monospace-12
+; Monospace-12:bold
+; DejaVu Sans Mono:bold:italic
+; Monospace-12:weight=bold:slant=italic
+
+(set-default-font "Inconsolata-12")
+(set-fontset-font (frame-parameter nil 'font)
+      'han '("Inconsolata" . "unicode-bmp"))
+(add-to-list 'default-frame-alist '(font . "Inconsolata"))
+
+;; Backup files
+(if (file-directory-p "~/.backup")
+    (setq backup-directory-alist '(("." . "~/.backup")))
+  (message "Directory does not exist: ~/.backup"))
+
+(setq backup-by-copying t ; Don't delink hardlinks
+      delete-old-versions t ; Clean up the backups
+      version-control t ; Use version numbers on backups,
+      kept-new-versions 3 ; keep some new versions
+      kept-old-versions 2) ; and some old ones, too
+
+;; Characater Support
+(prefer-coding-system 'utf-8)
+(if (not (assoc "UTF-8" language-info-alist))
+    (set-language-environment "utf-8")
+  (set-language-environment "utf-8")
+  (set-keyboard-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8))
+
+;;Auto- Save time
+(setq auto-save-timeout 2000)
+(setq make-backup-files t)
+
+;; Setup time mode
+(autoload 'display-time "time" "Display Time" t)
+(condition-case err
+    (display-time)
+  (error (message "Unable to load Time package.")))
+(setq display-time-day-and-date t)
+
+;; Meta
+(global-set-key "\M- " 'set-mark-command)
+(global-set-key "\M-\C-h" 'backward-kill-word)
+(global-set-key "\M-\C-r" 'query-replace)
+(global-set-key "\M-r" 'replace-string)
+(global-set-key "\M-g" 'goto-line)
+(global-set-key "\M-h" 'help-command)
+(global-set-key "\C-z" 'undo)
+(global-set-key [delete] 'delete-char)
+(global-set-key [backspace] 'delete-backward-char)
+
+;; Function keys
+(global-set-key [f1] 'manual-entry)
+(global-set-key [f2] 'info)
+(global-set-key [f3] 'repeat-complex-command)
+(global-set-key [f4] 'advertised-undo)
+(global-set-key [f5] 'eval-current-buffer)
+(global-set-key [f6] 'buffer-menu)
+(global-set-key [f7] 'other-window)
+(global-set-key [f8] 'find-file)
+(global-set-key [f9] 'save-buffer)
+(global-set-key [f10] 'next-error)
+(global-set-key [f11] 'compile)
+(global-set-key [f12] 'grep)
+(global-set-key [C-f1] 'compile)
+(global-set-key [C-f2] 'grep)
+(global-set-key [C-f3] 'next-error)
+(global-set-key [C-f4] 'previous-error)
+(global-set-key [C-f5] 'display-faces)
+(global-set-key [C-f8] 'dired)
+(global-set-key [C-f10] 'kill-compilation)
+
+;; Keypad bindings
+(global-set-key [up] "\C-p")
+(global-set-key [down] "\C-n")
+(global-set-key [left] "\C-b")
+(global-set-key [right] "\C-f")
+(global-set-key [home] "\C-a")
+(global-set-key [end] "\C-e")
+(global-set-key [prior] "\M-v")
+(global-set-key [next] "\C-v")
+(global-set-key [C-up] "\M-\C-b")
+(global-set-key [C-down] "\M-\C-f")
+(global-set-key [C-left] "\M-b")
+(global-set-key [C-right] "\M-f")
+(global-set-key [C-home] "\M-<")
+(global-set-key [C-end] "\M->")
+(global-set-key [C-prior] "\M-<")
+(global-set-key [C-next] "\M->")
+
+
+;; Mouse
+(global-set-key [mouse-3] 'imenu)
+
+;; Misc
+(global-set-key [C-tab] "\C-q\t") ; Control tab quotes a tab.
+(setq backup-by-copying-when-mismatch t)
+
+;;Comint
+(define-key comint-mode-map (kbd "M-") 'comint-next-input)
+(define-key comint-mode-map (kbd "M-") 'comint-previous-input)
+(define-key comint-mode-map [down] 'comint-next-matching-input-from-input)
+(define-key comint-mode-map [up] 'comint-previous-matching-input-from-input)
+
+;; Xoom
+(global-set-key (kbd "\M-+") 'text-scale-adjust)
+(global-set-key (kbd "\M--") 'text-scale-adjust)
+(global-set-key (kbd "\M-0") 'text-scale-adjust)
+
+;; Sr-speedbar
+(global-set-key (kbd "s-s") 'sr-speedbar-toggle)
+(global-set-key (kbd "s-r") 'sr-speedbar-refresh-toggle)
+
+;; Isearch keymap bindings
+(define-key isearch-mode-map [backspace] 'isearch-delete-char)
+
+;; Treat 'y' or <CR> as yes, 'n' as no.
+(fset 'yes-or-no-p 'y-or-n-p)
+(define-key query-replace-map [return] 'act)
+(define-key query-replace-map [?\C-m] 'act)
+
+;; Pretty diff mode
+(autoload 'ediff-buffers "ediff" "Intelligent Emacs interface to diff" t)
+(autoload 'ediff-files "ediff" "Intelligent Emacs interface to diff" t)
+(autoload 'ediff-files-remote "ediff"
+  "Intelligent Emacs interface to diff")
+
+;; Auto-complete with complete anything(company)
+(autoload 'company-mode "company" nil t)
+
+
+;; ==================== Function to delete a line =============================
+
+;; First define a variable which will store the previous column position
+(defvar previous-column nil "Save the column position")
+
+;; Define the nuke-line function. The line is killed, then the newline
+;; character is deleted. The column which the cursor was positioned at is then
+;; restored. Because the kill-line function is used, the contents deleted can
+;; be later restored by usibackward-delete-char-untabifyng the yank commands.
+(defun nuke-line()
+  "Kill an entire line, including the trailing newline character"
+  (interactive)
+
+  ;; Store the current column position, so it can later be restored for a more
+  ;; natural feel to the deletion
+  (setq previous-column (current-column))
+
+  ;; Now move to the end of the current line
+  (end-of-line)
+
+  ;; Test the length of the line. If it is 0, there is no need for a
+  ;; kill-line. All that happens in this case is that the new-line character
+  ;; is deleted.
+  (if (= (current-column) 0)
+    (delete-char 1)
+
+    ;; This is the 'else' clause. The current line being deleted is not zero
+    ;; in length. First remove the line by moving to its start and then
+    ;; killing, followed by deletion of the newline character, and then
+    ;; finally restoration of the column position.
+    (progn
+      (beginning-of-line)
+      (kill-line)
+      (delete-char 1)
+      (move-to-column previous-column))))
+
+;; Now bind the delete line function to the F8 key
+(global-set-key [C-delete] 'nuke-line)
+
+;; ============================================================================
+
+(setq auto-mode-alist
+(append '(("\\.cpp$" . c++-mode)
+    ("\\.hpp$" . c++-mode)
+    ("\\.lsp$" . lisp-mode)
+    ("\\.scm$" . scheme-mode)
+    ("\\.pl$" . perl-mode)
+    ("\\.org\\'" . org-mode)
+    ("\\.py\\'" . python-mode)
+    ("\\.html$" . django-html-mode)
+    ("\\.htm$" . django-html-mode)
+    ("\\.djhtml$" . django-html-mode)
+    ) auto-mode-alist))
+
+(yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets/django-mode/snippets")
+
+
+;; C++ and C mode...
+(defun my-c++-mode-hook ()
+  (setq tab-width 4)
+  (define-key c++-mode-map "\C-m" 'reindent-then-newline-and-indent)
+  (define-key c++-mode-map "\C-ce" 'c-comment-edit)
+  (setq c++-auto-hungry-initial-state 'none)
+  (setq c++-delete-function 'backward-delete-char)
+  (setq c++-tab-always-indent t)
+  (setq c-indent-level 4)
+  (setq c-continued-statement-offset 4)
+  (setq c++-empty-arglist-indent 4))
+
+(defun my-c-mode-hook ()
+  (setq tab-width 4)
+  (define-key c-mode-map "\C-m" 'reindent-then-newline-and-indent)
+  (define-key c-mode-map "\C-ce" 'c-comment-edit)
+  (setq c-auto-hungry-initial-state 'none)
+  (setq c-delete-function 'backward-delete-char)
+  (setq c-tab-always-indent t)
+  (setq c-indent-level 4)
+  (setq c-continued-statement-offset 4)
+  (setq c-brace-offset -4)
+  (setq c-argdecl-indent 0)
+  (setq c-label-offset -4))
+
+;; Perl mode
+(defun my-perl-mode-hook ()
+  (setq tab-width 4)
+  (define-key c++-mode-map "\C-m" 'reindent-then-newline-and-indent)
+  (setq perl-indent-level 4)
+  (setq perl-continued-statement-offset 4))
+
+;; Scheme mode...
+(defun my-scheme-mode-hook ()
+  (define-key scheme-mode-map "\C-m" 'reindent-then-newline-and-indent))
+
+;; Emacs-Lisp mode...
+(defun my-lisp-mode-hook ()
+  (define-key lisp-mode-map "\C-m" 'reindent-then-newline-and-indent)
+  (define-key lisp-mode-map "\C-i" 'lisp-indent-line)
+  (define-key lisp-mode-map "\C-j" 'eval-print-last-sexp))
+
+;; Python-mode
+(setq lambda-symbol (string (make-char 'greek-iso8859-7 107)))
+(when (require 'anything-show-completion nil t)
+     (use-anything-show-completion 'anything-ipython-complete
+                                   '(length initial-pattern)))
+(defun annotate-pdb ()
+  (interactive)
+  (highlight-lines-matching-regexp "import pdb")
+  (highlight-lines-matching-regexp "pdb.set_trace()"))
+
+(add-hook 'python-mode-hook 'annotate-pdb)
+
+;; Add all of the hooks...
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
+(add-hook 'c-mode-hook 'my-c-mode-hook)
+(add-hook 'scheme-mode-hook 'my-scheme-mode-hook)
+(add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
+(add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
+(add-hook 'perl-mode-hook 'my-perl-mode-hook)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'text-mode-hook '(lambda() (auto-fill-mode 1)))
+(add-hook 'text-mode-hook '(lambda() (setq fill-column 79)))
+
+;; Always update time stamps on writing
+(add-hook 'before-save-hook 'time-stamp)
+;; Always delete trailing whitespaces
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Python hooks
+(add-hook 'python-mode-hook #'lambda-mode 1)
+(add-hook 'python-mode-hook 'highlight-indentation-mode)
+(add-hook 'haskell-mode-hook 'highlight-indentation-mode)
+(add-hook 'emacs-lisp-mode-hook 'highlight-indentation-mode)
+
+;; Help settings.
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+(defvar server-buffer-clients)
+(when (and (fboundp 'server-start) (string-equal (getenv "TERM") 'urxvt))
+  (server-start)
+  (defun fp-kill-server-with-buffer-routine ()
+    (and server-buffer-clients (server-done)))
+  (add-hook 'kill-buffer-hook 'fp-kill-server-with-buffer-routine))
+
+;; Sr-speed bar start.
+(when window-system
+  (defadvice sr-speedbar-open (after sr-speedbar-open-resize-frame activate)
+    (set-frame-width (selected-frame)
+                     (+ (frame-width) sr-speedbar-width)))
+  (ad-enable-advice 'sr-speedbar-open 'after 'sr-speedbar-open-resize-frame)
+
+  (defadvice sr-speedbar-close (after sr-speedbar-close-resize-frame activate)
+    (sr-speedbar-recalculate-width)
+    (set-frame-width (selected-frame)
+                     (- (frame-width) sr-speedbar-width)))
+  (ad-enable-advice 'sr-speedbar-close 'after 'sr-speedbar-close-resize-frame))
+
+;; No need to debug anything now
+(setq debug-on-error t)
+;; ===========================================================================
+;; fly-make
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "pyflakes" (list local-file))))
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pyflakes-init)))
+(add-hook 'python-mode-hook 'flymake-mode)
+
+;; ===========================================================================
+;; All done
+(message "All done, %s%s" (user-login-name) ".")
