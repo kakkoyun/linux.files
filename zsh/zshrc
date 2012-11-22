@@ -40,7 +40,8 @@ alias s="ssh"
 # package management
 alias sapti="sudo aptitude install"
 alias saptr="sudo aptitude remove"
-alias saptud="sudo aptitude update"
+alias saptu="sudo aptitude update"
+alias saptug="sudo aptitude upgrade"
 alias saptsrc="apt-cache search"
 alias sapts="apt-cache show"
 
