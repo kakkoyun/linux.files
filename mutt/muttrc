@@ -2,6 +2,8 @@
 
 # Sets up mail box in your home folder
 
+#Folders
+
 set mbox_type=maildir
 set mbox="~/mail/inbox/"
 set spoolfile="~/mail/inbox/"
@@ -9,37 +11,51 @@ set folder="~/mail/"
 set record="~/mail/sent/"
 set postponed="~/mail/postponed/"
 
-#Gmail account info
-set from = 'kakkoyun@gmail.com'
-set realname = 'Kemal Akkoyun'
+#Remote Folders
 
-set imap_user = "kakkoyun@gmail.com"
-set imap_pass = ""
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set copy = no
+
+#Local Folders
+
+set message_cachedir =~/.mutt/cache/bodies
+set certificate_file =~/.mutt/certificates
+
+#Sort
 
 set sort = 'threads'
 set sort_aux = 'last-date-received'
 
 #My Editor
 
-set editor='your fav editor + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+# set editor='emacs + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+# set editor = "vim +8"
+set editor='vim +8 -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
 
-#Folders
+#Gmail account info
 
-#Remote Folders
+set from = 'kakkoyun@gmail.com'
+set realname = 'Kemal Akkoyun'
 
-set folder = "imaps://imap.gmail.com:993"
-set spoolfile = "+INBOX"
-set postponed ="+[Gmail]/Drafts"
-
-#Local Folders
-
-# set message_cachedir =~/.mutt/cache/bodies
-set certificate_file =~/.mutt/certificates
+set imap_user = "kakkoyun@gmail.com"
+set imap_pass = ""
+set imap_check_subscribed
+set mail_check = 60
 
 #SMTP Setup
 
 set smtp_url = "smtp://kakkoyun@gmail.com@smtp.gmail.com:587/"
 set smtp_pass = ""
+
+#Mutt Session Security
+
+set move = no  #Stop asking to "move read messages to mbox"!
+set timeout = 100
+set imap_keepalive = 300  # 15 minutes keepalive
+
 
 #Special Keybindings
 
@@ -50,13 +66,7 @@ macro index gs "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to Sent Mail"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 macro index gx '<change-folder>=[Gmail]/Spam<enter>' 'Go to Spam'
 
-#Mutt Session Security
-
-set move = no  #Stop asking to "move read messages to mbox"!
-set imap_keepalive = 900
-
 # Colors
-
 color normal    white black
 color attachment brightyellow black
 color hdrdefault cyan black
@@ -84,13 +94,15 @@ color body    brightred black [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
 color body    brightblue black (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
 
 # Sidebar
+
 set sidebar_width=20
 set sidebar_visible=yes
 set sidebar_delim='|'
-set sidebar_sort=yes
+set sidebar_sort=no
 color sidebar_new brightblue black# b toggles sidebar visibility
 macro index b 'toggle sidebar_visible'
 macro pager b 'toggle sidebar_visible'
+set sidebar_folderindent=yes
 
 bind index \CP sidebar-prev
 bind index \CN sidebar-next
@@ -98,3 +110,6 @@ bind index \CO sidebar-open
 bind pager \CP sidebar-prev
 bind pager \CN sidebar-next
 bind pager \CO sidebar-open
+
+
+bind index l display-message

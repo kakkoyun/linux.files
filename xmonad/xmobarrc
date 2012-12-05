@@ -4,7 +4,7 @@ Config { font = "xft:Monofur-11:style=bold"
        , position = TopW L 94
        , lowerOnStart = True
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    , Run Weather "LTBA" ["-t","<tempC>°C, <skyCondition> ","-L","18","-H","25","--normal","aquamarine2","--high","chocolate1","--low","lightskyblue"] 36000
+                    , Run Weather "LTFJ" ["-t","<tempC>°C, <skyCondition> ","-L","18","-H","25","--normal","aquamarine2","--high","chocolate1","--low","lightskyblue"] 36000
                     , Run Cpu ["-L","10","-H","60","--normal","green","--high","red"] 10
                     , Run CpuFreq ["-t","<cpu0>"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
@@ -17,5 +17,5 @@ Config { font = "xft:Monofur-11:style=bold"
         ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#ee9a00>%date%</fc> %LTBA%|%StdinReader% }{ <fc=#ff0000>%led%</fc>| %cpu%@%cpufreq% | %memory% %swap% | %wlan0% | %battery%"
+       , template = "<fc=#ee9a00>%date%</fc> %LTFJ%|%StdinReader% }{ <fc=#ff0000>%led%</fc>| %cpu%@%cpufreq% | %memory% %swap% | %wlan0% | %battery%"
        }

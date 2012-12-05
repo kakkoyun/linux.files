@@ -462,7 +462,7 @@ myStartupHook = do safeSpawnProg "rxvt"
                    mapM_ spawn (configureSynaptics synapticsConfig)
                    safeSpawnProg "gnome-settings-daemon"
                    safeSpawnProg "gnome-screensaver"
-                   spawn "gnome-keyring-daemon"
+                   spawn "gnome-keyring-daemon --start --components=pkcs11,ssh,pgp,secrets"
                    -- spawn "xscrensaver"
                    -- safeSpawnProg "bluetooth-applet"
                    spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
