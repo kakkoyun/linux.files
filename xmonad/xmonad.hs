@@ -47,6 +47,9 @@ import XMonad.Util.EZConfig (additionalKeys)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
+-- Personal Library
+import Solarized
+
 
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -89,6 +92,8 @@ myWorkspaces    = ["α", "β" ,"γ", "δ", "ε", "ζ", "η", "θ", "ι"]
 --
 myNormalBorderColor  = "#ee9a00"
 myFocusedBorderColor = "#000000"
+solarizedNormalBorderColor = solarizedBase01
+solarizedFocusedBorderColor = solarizedRed
 
 
 -- Default offset of drawable screen boundaries from each physical
@@ -263,7 +268,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Config for Prompt
 --
 revXPConfig :: XPConfig
-revXPConfig = defaultXPConfig { font              = "xft:Consolas-12"
+revXPConfig = defaultXPConfig { font              = "xft:inconsolata-9"
                               , bgColor           = "black"
                               , fgColor           = "white"
                               , fgHLight          = "black"
@@ -320,7 +325,7 @@ revTabTheme = defaultTheme { inactiveBorderColor = "#000"
                         , inactiveColor = "DarkSlateGray4"
                         , inactiveTextColor = "#222"
                         , activeTextColor = "#222"
-                        , fontName = "xft:Consolas-9:bold"
+                        , fontName = "xft:inconsolata-9:bold"
                         , decoHeight = 18
                         , urgentColor = "#000"
                         , urgentTextColor = "#63b8ff"
@@ -333,12 +338,24 @@ revDarkTabTheme = defaultTheme { inactiveBorderColor = "#777"
                             , inactiveColor = "#444"
                             , inactiveTextColor = "aquamarine4"
                             , activeTextColor = "#000"
-                            , fontName = "xft:Consolas-9"
+                            , fontName = "xft:inconsolata-9"
                             , decoHeight = 16
                             , urgentColor = "#000"
                             , urgentTextColor = "#63b8ff"
                         }
 
+revSolarizedTheme :: Theme
+revSolarizedTheme = defaultTheme { inactiveBorderColor = "#777"
+                            , activeBorderColor = myFocusedBorderColor
+                            , activeColor = "#ee9a00"
+                            , inactiveColor = "#444"
+                            , inactiveTextColor = "aquamarine4"
+                            , activeTextColor = "#000"
+                            , fontName = "xft:inconsolata-9"
+                            , decoHeight = 16
+                            , urgentColor = "#000"
+                            , urgentTextColor = "#63b8ff"
+                        }
 ------------------------------------------------------------------------
 -- Window rules:
 
@@ -410,7 +427,8 @@ myFocusFollowsMouse = True
 --
 myLogHook h = do
   ewmhDesktopsLogHook
-  dynamicLogWithPP $ revPP h
+  -- dynamicLogWithPP $ revPP h
+  dynamicLogWithPP $ revSolarizedPP h
   updatePointer (Relative (1/20) (1/20))
   fadeInactiveLogHook fadeAmount
      where fadeAmount = 0.8
@@ -424,8 +442,8 @@ revPP h = defaultPP  { ppCurrent = wrap "<fc=black,aquamarine3> " " </fc>"
                                   ++ case x of
                                        "Mirror ResizableTall"   -> "MTiled"
                                        "ResizableTall"          -> "Tiled"
-                                       "Tabbed Simplest" -> "Tabbed"
-                                       "Magnifier Grid"        -> "MgGrid"
+                                       "Tabbed Simplest"        -> "Tabbed"
+                                       "Magnifier Grid"         -> "MgGrid"
                                        _                        -> x
                                   ++ "</fc> "
                      , ppTitle = \x -> case length x of
@@ -433,6 +451,27 @@ revPP h = defaultPP  { ppCurrent = wrap "<fc=black,aquamarine3> " " </fc>"
                                          _ -> "<fc=DarkSlateGray3,black>" ++ shorten 30 x ++ "</fc>"
                      , ppHiddenNoWindows = wrap "<fc=#aaa,black> " " </fc>"
                      , ppHidden = wrap "<fc=#aaa,black> " " </fc>"
+                     , ppOutput = hPutStrLn h
+                     }
+
+revSolarizedPP :: Handle -> PP
+revSolarizedPP h = defaultPP  { ppCurrent = wrap "<fc=#002b36, #6c71c4> " " </fc>"
+                     , ppSep        = ""
+                     , ppWsSep      = ""
+                     , ppVisible    = wrap "<fc=#002b36,#b58900> " " </fc>"
+                     , ppLayout     = \x -> " <fc=#cb4b16 ,#002b36>"
+                                  ++ case x of
+                                       "Mirror ResizableTall"   -> "MTiled"
+                                       "ResizableTall"          -> "Tiled"
+                                       "Tabbed Simplest"        -> "Tabbed"
+                                       "Magnifier Grid"         -> "MgGrid"
+                                       _                        -> x
+                                  ++ "</fc> "
+                     , ppTitle = \x -> case length x of
+                                         0 -> ""
+                                         _ -> "<fc=#657b83,#002b36>" ++ shorten 30 x ++ "</fc>"
+                     , ppHiddenNoWindows = wrap "<fc=#dc322f,#002b36> " " </fc>"
+                     , ppHidden = wrap "<fc=#dc322f,#002b36> " " </fc>"
                      , ppOutput = hPutStrLn h
                      }
 
@@ -465,7 +504,8 @@ myStartupHook = do safeSpawnProg "rxvt"
                    spawn "gnome-keyring-daemon --start --components=pkcs11,ssh,pgp,secrets"
                    -- spawn "xscrensaver"
                    -- safeSpawnProg "bluetooth-applet"
-                   spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
+                   -- spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
+                   spawn "trayer --transparent true --alpha 155 --tint #002b36 --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
                    return ()
 
 synapticsConfig = [("CircularScrolling","1"),
@@ -519,8 +559,10 @@ defaults pipe = defaultConfig {
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
         workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
+      -- normalBorderColor  = myNormalBorderColor,
+      -- focusedBorderColor = myFocusedBorderColor,
+        normalBorderColor  = solarizedNormalBorderColor,
+        focusedBorderColor = solarizedFocusedBorderColor,
       -- defaultGaps        = myDefaultGaps,
 
       -- key bindings

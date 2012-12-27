@@ -1,35 +1,73 @@
-!URxvt*termName: urxvt
-URxvt*tintColor:        white
-URxvt*foreground:       white
-URxvt*background:       black
+!------------------------------------------------------------------------------!
+! Xft Settings                                                                 !
+!------------------------------------------------------------------------------!
+
+Xft.dpi:                96
+Xft.hinting:            true
+Xft.hintstyle:          hintslight
+!Xft.hintstyle:          hintfull
+Xft.antialias:          rgba
+!Xft.antialias:          false
+Xft.rgba:               rgb
+
+
+!------------------------------------------------------------------------------!
+! URxvt Settings                                                               !
+! Colours lifted from Solarized (http://ethanschoonover.com/solarized)         !
+! More info at:                                                                !
+! https://wiki.archlinux.org/index.php/Rxvt-unicode                            !
+!------------------------------------------------------------------------------!
+
+URxvt*termName: rxvt-unicode
+
+!URxvt*loginShell:       false
+URxvt.loginShell:       true
+
+URxvt*buffered: true
+
+URxvt.urgentOnBell:     false
+URxvt.visualBell:       false
+
+!URxvt.saveLines:        50
+URxvt*saveLines:        32767
+
+URxvt.depth:            32
+!URxvt*geometry:         90x30
+URxvt*geometry:         84x24
+!URxvt*inheritPixmap:   true
+
+URxvt.internalBorder:   3
+URxvt.lineSpace:        0
+
+! Scrollbar
+URxvt.scrollStyle:      rxvt
+URxvt*scrollBar:        false
+Urxvt*secondaryScroll:  true
+!URxvt*scrollBar_right: false
 !URxvt*borderLess:      true
 
-URxvt*transparent:      true
-URxvt*fading:           40
-URxvt*fadeColour:       gray
-URxvt.depth: 32
 
-! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
-URxvt*shading:          20
+URxvt*transparent:      true
+!URxvt*fading:           40
+! Shading: 0 to 99 darkens, 101 to 200 lightens
+!URxvt*shading:          110
 !URxvt*blurRadius:       16x16
 
-URxvt*cursorColor:      red
-URxvt*cursorUnderline:  true
-
-URxvt*loginShell:       false
-
-URxvt*scrollBar:        false
-!URxvt*scrollBar_right: false
-
-!URxvt*inheritPixmap:	true
-!URxvt*geometry:		84x24
-
-URxvt*font: xft: Incosolata Mono:pixelsize=11
-URxvt*boldFont: xft: Monofur Mono:bold:pixelsize=12
+! Fonts
+!URxvt.allow_bold:       false
+!URxvt.font:             xft:inconsolata:size=10
+URxvt*font:  xft:inconsolata:size=10:antialias=true
+!URxvt.font: xft:inconsolata:bold:size=12
 !URxvt*font: cmatrix:size=12x24
+!URxvt.font: -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1
+!URxvt*font: xft:Monospace:pixelsize=14
+!URxvt*boldFont: xft:Monospace:pixelsize=14
 
-URxvt*saveLines:32767
+! Fix font space
+URxvt*letterSpace:      -1
 
+! Perl extensions
+! Link execution settings.
 URxvt*perl-ext-common:  default,matcher
 URxvt*urlLauncher:      /usr/bin/firefox
 URxvt*matcher.button:   1
@@ -38,45 +76,139 @@ URxvt*colorUL: #4682B4
 URxvt*keysym.C-Delete:  perl:matcher:last
 URxvt*keysym.M-Delete:  perl:matcher:list
 
+! URxvt Tab Configurations.
+! Deprecated: Using tmux tabs.
 !URxvt*perl-ext-common:  default,tabbed
 !URxvt*tabbed.tabbar-fg: 2
 !URxvt*tabbed.tabbar-bg: 0
 !URxvt*tabbed.tab-fg:    3
 
-URxvt*color0:      #000000
-URxvt*color1:      #A80000
-URxvt*color2:      #00A800
-URxvt*color3:      #A85400
-URxvt*color4:      #0000A8
-URxvt*color5:      #A800A8
-URxvt*color6:      #00A8A8
-URxvt*color7:      #A8A8A8
-URxvt*color8:      #545054
-URxvt*color9:      #F85450
-URxvt*color10:     #50FC50
-URxvt*color11:     #F2FC50
-URxvt*color12:     #F57A15
-URxvt*color13:     #F854F8
-URxvt*color14:     #50FCF8
-URxvt*color15:     #F8FCF8
+
+! Cursor
+URxvt.cursorBlink:          true
+!URxvt*cursorColor:          red
+!URxvt.cursorColor:          #657b83
+URxvt.cursorUnderline:      false
+!URxvt*cursorUnderline:      true
+
+! Pointer
+URxvt.pointerBlank:         true
+
+!------------------------------------------------------------------------------!
+! Rxvt Color settings                                                          !
+!------------------------------------------------------------------------------!
+!Source http://github.com/altercation/solarized                                !
+!------------------------------------------------------------------------------!
+
+
+!!SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
+!!--------- ------- ---- -------  ----------- ---------- ----------- -----------
+!!base03    #002b36  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
+!!base02    #073642  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
+!!base01    #586e75 10/7 brgreen  240 #585858 45 -07 -07  88 110 117 194  25  46
+!!base00    #657b83 11/7 bryellow 241 #626262 50 -07 -07 101 123 131 195  23  51
+!!base0     #839496 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
+!!base1     #93a1a1 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
+!!base2     #eee8d5  7/7 white    254 #e4e4e4 92 -00  10 238 232 213  44  11  93
+!!base3     #fdf6e3 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
+!!yellow    #b58900  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
+!!orange    #cb4b16  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
+!!red       #dc322f  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
+!!magenta   #d33682  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
+!!violet    #6c71c4 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
+!!blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
+!!cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
+!!green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+! Background Colors:
+*background:            [85]S_base03
+!*background:            rgba:0000/0043/0054/dddd
+*foreground:            S_base00
+*fadeColor:             S_base03
+*tintColor:             S_base01
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
+
+!! black dark/light
+*color0:                S_base02
+*color8:                S_base03
+
+!! red dark/light
+*color1:                S_red
+*color9:                S_orange
+
+!! green dark/light
+*color2:                S_green
+*color10:               S_base01
+
+!! yellow dark/light
+*color3:                S_yellow
+*color11:               S_base00
+
+!! blue dark/light
+*color4:                S_blue
+*color12:               S_base0
+
+!! magenta dark/light
+*color5:                S_magenta
+*color13:               S_violet
+
+!! cyan dark/light
+*color6:                S_cyan
+*color14:               S_base1
+
+!! white dark/light
+*color7:                S_base2
+*color15:               S_base3
+
+! Old colors:
+
+URxvt*tintColor:         #586e75
+!URxvt*foreground:       white
+!URxvt*background:       black
+!URxvt*fadeColour:       gray
+
+!URxvt*color0:      #000000
+!URxvt*color1:      #A80000
+!URxvt*color2:      #00A800
+!URxvt*color3:      #A85400
+!URxvt*color4:      #0000A8
+!URxvt*color5:      #A800A8
+!URxvt*color6:      #00A8A8
+!URxvt*color7:      #A8A8A8
+!URxvt*color8:      #545054
+!URxvt*color9:      #F85450
+!URxvt*color10:     #50FC50
+!URxvt*color11:     #F2FC50
+!URxvt*color12:     #F57A15
+!URxvt*color13:     #F854F8
+!URxvt*color14:     #50FCF8
+!URxvt*color15:     #F8FCF8
+
+!------------------------------------------------------------------------------!
+! Xpdf Settings                                                                !
+!------------------------------------------------------------------------------!
 
 xpdf*enableFreetype:    yes
 xpdf*antialias:         yes
 xpdf*foreground:        black
 xpdf*background:        white
 xpdf*urlCommand:        /usr/bin/firefox %s
-
-! Emacs Confs
-!emacs.font: Inconsolata-12
-!Emacs.font: -xos4-terminus-medium-r-normal-*-14-*-*-*-*-*-*-*
-!Emacs.foreground: white
-!Emacs.background: black
-!Emacs.menuBar: off
-!Emacs.toolBar: off
-
-!Xft hinting
-Xft.dpi:                96
-Xft.hinting:            true
-Xft.hintstyle:          hintfull
-Xft.antialias:          rgba
-Xft.rgba:               rgb

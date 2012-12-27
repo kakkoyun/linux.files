@@ -1,6 +1,6 @@
 Config { font = "xft:Monofur-11:style=bold"
        , bgColor = "black"
-       , fgColor = "grey"
+       , fgColor = "gray"
        , position = TopW L 94
        , lowerOnStart = True
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
