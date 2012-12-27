@@ -5,17 +5,17 @@ Config { font = "xft:Monofur-11:style=bold"
        , lowerOnStart = True
        , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run Weather "LTFJ" ["-t","<tempC>°C, <skyCondition> ","-L","18","-H","25","--normal","aquamarine2","--high","chocolate1","--low","lightskyblue"] 36000
-                    , Run Cpu ["-L","10","-H","60","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","10","-H","60","--normal","#859900","--high","#dc322f"] 10
                     , Run CpuFreq ["-t","<cpu0>"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
                     , Run CommandReader "/home/rev/.xmonad/ledmon" "led"
-                    , Run Network "wlan0" ["-L","0","-H","400","--normal","green","--high","red"] 10
-                    , Run Battery ["-t","<left>%/<timeleft>","-L","50","-H","75","-h","green","-n","yell","-l","red"] 10
+                    , Run Network "wlan0" ["-L","0","-H","400","--normal","#859900","--high","#dc322f"] 10
+                    , Run Battery ["-t","<left>%/<timeleft>","-L","50","-H","75","-h","#859900","-n","#b58900","-l","dc322f"] 10
                     , Run StdinReader
         ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#ee9a00>%date%</fc> %LTFJ%|%StdinReader% }{ <fc=#ff0000>%led%</fc>| %cpu%@%cpufreq% | %memory% %swap% | %wlan0% | %battery%"
+       , template = "<fc=#cb4b16>%date%</fc> %LTFJ%|%StdinReader% }{ <fc=#ff0000>%led%</fc>| %cpu%@%cpufreq% | %memory% %swap% | %wlan0% | %battery%"
        }
