@@ -106,7 +106,7 @@ color message       cyan            default
 color markers       red             white
 color attachment    white           default
 color search        brightmagenta   default
-#color status        J_black         J_status
+# color status        J_black         J_status
 color status        brightyellow    black
 color indicator     brightblack     yellow
 color tree          yellow          default                                     # arrow in threads
@@ -220,9 +220,9 @@ color body          red             default         "([a-z][a-z0-9+-]*://(((([a-
 # Border lines.
 #color body          blue            default         "( *[-+=#*~_]){6,}"
 
-folder-hook .                  "color status        J_black         J_status        "
-folder-hook gmail/inbox        "color status        J_black         yellow          "
-folder-hook gmail/important    "color status        J_black         yellow          "
+# folder-hook .                  "color status        J_black         J_status        "
+# folder-hook gmail/inbox        "color status        J_black         yellow          "
+# folder-hook gmail/important    "color status        J_black         yellow          "
 
 
 # Sidebar
@@ -233,7 +233,7 @@ set sidebar_sort=no
 color sidebar_new brightblue black# b toggles sidebar visibility
 macro index b 'toggle sidebar_visible'
 macro pager b 'toggle sidebar_visible'
-set sidebar_folderindent=yes
+# set sidebar_folderindent=yes
 
 bind index \CP sidebar-prev
 bind index \CN sidebar-next

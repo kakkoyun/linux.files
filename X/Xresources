@@ -47,8 +47,8 @@ Urxvt*secondaryScroll:  true
 !URxvt*borderLess:      true
 
 
-URxvt*transparent:      true
-!URxvt*fading:           40
+URxvt*transparent:      false
+URxvt*fading:           40
 ! Shading: 0 to 99 darkens, 101 to 200 lightens
 !URxvt*shading:          110
 !URxvt*blurRadius:       16x16
@@ -180,7 +180,9 @@ URxvt.pointerBlank:         true
 *color7:                S_base2
 *color15:               S_base3
 
+
 ! Old colors:
+!-------------------------------------------------------------------------------
 
 URxvt*tintColor:         #586e75
 !URxvt*foreground:       white
@@ -210,6 +212,6 @@ URxvt*tintColor:         #586e75
 
 xpdf*enableFreetype:    yes
 xpdf*antialias:         yes
-xpdf*foreground:        black
-xpdf*background:        white
+xpdf*foreground:        white
+xpdf*background:        gray
 xpdf*urlCommand:        /usr/bin/firefox %s
