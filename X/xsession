@@ -1,4 +1,5 @@
 #!/bin/bash
+# Need a zsh script
 
 # Load resources
 xrdb -merge .Xresources
@@ -7,8 +8,6 @@ xrdb -merge .Xresources
 xmodmap -e "remove Lock = Caps_Lock"
 xmodmap -e "add Control = Caps_Lock"
 
-# start the emacs daemon
-emacs --daemon
 
 #################################################################
 #### Deprecated : This jobs now handled by xmonad .##############
@@ -24,6 +23,9 @@ emacs --daemon
 #gajim &
 
 #xscreensaver -no-splash &
+
+# start the emacs daemon
+# emacs --daemon
 
 #if [ -x /usr/bin/nm-applet ] ; then
 #   nm-applet --sm-disable &
