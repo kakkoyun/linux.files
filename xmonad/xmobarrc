@@ -12,7 +12,7 @@ Config { font = "xft:Monofur-11:style=bold"
                     , Run Com "uname" ["-s","-r"] "" 36000
                     , Run CommandReader "/home/rev/.xmonad/ledmon" "led"
                     , Run Network "wlan0" ["-L","0","-H","400","--normal","#859900","--high","#dc322f"] 10
-                    , Run Battery ["-t","<left>%/<timeleft>","-L","50","-H","75","-h","#859900","-n","#b58900","-l","dc322f"] 10
+                    , Run Battery ["-t","<left>%/<timeleft>","-L","30","-H","75","-h","#859900","-n","#b58900","-l","dc322f"] 10
                     , Run StdinReader
         ]
        , sepChar = "%"
