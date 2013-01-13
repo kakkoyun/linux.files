@@ -138,7 +138,8 @@ URxvt.pointerBlank:         true
 #define S_green         #859900
 
 ! Background Colors:
-*background:            [85]S_base03
+*background:            S_base03
+!*background:            [85]S_base03
 !*background:            rgba:0000/0043/0054/dddd
 *foreground:            S_base00
 *fadeColor:             S_base03
