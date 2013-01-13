@@ -29,8 +29,11 @@ import XMonad.Layout.Circle
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.Gaps
 import XMonad.Layout.Grid
+import XMonad.Layout.IM
 import XMonad.Layout.Magnifier
 import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Reflect
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spiral
 import XMonad.Layout.TabBarDecoration
@@ -90,10 +93,14 @@ myWorkspaces    = ["α", "β" ,"γ", "δ", "ε", "ζ", "η", "θ", "ι"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#ee9a00"
+solarizedNormalBorderColor = solarizedRed
+solarizedFocusedBorderColor = solarizedBase01
+
+-- myNormalBorderColor  = "#ee9a00"
+myNormalBorderColor  = solarizedNormalBorderColor
+-- myFocusedBorderColor = solarizedFocusedBorderColor
 myFocusedBorderColor = "#000000"
-solarizedNormalBorderColor = solarizedBase01
-solarizedFocusedBorderColor = solarizedRed
+
 
 
 -- Default offset of drawable screen boundaries from each physical
@@ -182,21 +189,23 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask              , xK_period), sendMessage (IncMasterN (-1)))
 
     -- Ssh to host
-    , ((modMask .|. controlMask, xK_s), sshPrompt defaultXPConfig)
+    , ((modMask .|. controlMask, xK_s), sshPrompt revXPConfig)
 
     -- toggle the status bar gap
-    -- , ((modMask              , xK_b     ),
-    --       modifyGap (\i n -> let x = (XMonad.defaultGaps conf ++ repeat (0,0,0,0)) !! i
-    --                          in if n == x then (0,0,0,0) else x))
-
+    {-
+    This piece off code deprecated but I like to keep stuff.
+    , ((modMask              , xK_b     ),
+           modifyGap (\i n -> let x = (XMonad.defaultGaps conf ++ repeat (0,0,0,0)) !! i
+                              in if n == x then (0,0,0,0) else x))
+    -}
     , ((modMask, xK_b), sendMessage ToggleStruts)
 
     -- Quit xmonad
     , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
 
     -- Restart xmonad
-    , ((modMask              , xK_q     ), restart "xmonad" True)
-    -- , ((modMask              , xK_q     ), spawn "xmonad --recompile; xmonad --restart"
+    -- , ((modMask              , xK_q     ), restart "xmonad" True)
+    , ((modMask              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
     -- Shell Promt
     , ((modMask              , xK_p     ), shellPrompt revXPConfig)
@@ -292,7 +301,8 @@ revXPConfig = defaultXPConfig { font              = "xft:inconsolata-9"
 -- which denotes layout choice.
 --
 -- avoidStruts (simpleTabbed)
-myLayout = avoidStruts ( tabs ||| tiled ||| Mirror tiled ||| spiral (6/7) ||| magnify Grid ||| noBorders (fullscreenFull Full))
+myLayoutHook = onWorkspace "ι" gimp $
+        avoidStruts ( tabs ||| tiled ||| Mirror tiled ||| spiral (6/7) ||| magnify Grid ||| noBorders (fullscreenFull Full))
   where
      -- default tiling algorithm partitions the screen into two panes
      -- tiled   = Tall nmaster delta ratio
@@ -311,10 +321,15 @@ myLayout = avoidStruts ( tabs ||| tiled ||| Mirror tiled ||| spiral (6/7) ||| ma
      delta   = 3/10
 
      -- Tabs
-     tabs = tabbed shrinkText revDarkTabTheme
+     tabs = tabbed shrinkText revSolarizedTheme
 
      -- magnification in grid
      magnify = magnifiercz (13%10)
+
+     -- gimp
+     gimp = withIM (0.11) (Role "gimp-toolbox") $
+            reflectHoriz $
+            withIM (0.15) (Role "gimp-dock") Full
 
 ------------------------------------------------------------------------
 -- Configuration for Tabbed
@@ -347,14 +362,14 @@ revDarkTabTheme = defaultTheme { inactiveBorderColor = "#777"
 revSolarizedTheme :: Theme
 revSolarizedTheme = defaultTheme { inactiveBorderColor = "#777"
                             , activeBorderColor = myFocusedBorderColor
-                            , activeColor = "#ee9a00"
+                            , activeColor = solarizedYellow
                             , inactiveColor = "#444"
-                            , inactiveTextColor = "aquamarine4"
+                            , inactiveTextColor = solarizedCyan
                             , activeTextColor = "#000"
                             , fontName = "xft:inconsolata-9"
                             , decoHeight = 16
                             , urgentColor = "#000"
-                            , urgentTextColor = "#63b8ff"
+                            , urgentTextColor = solarizedRed
                         }
 ------------------------------------------------------------------------
 -- Window rules:
@@ -377,7 +392,7 @@ myManageHookOnes = composeOne [ isFullscreen -?> doFullFloat
 
 myManageHook = composeAll [ className =? "Chromium" --> doShift "β"
                , resource =? "desktop_window" --> doIgnore
-               , className =? "Gimp" --> doFloat
+               , className =? "Gimp" --> doShift "ι"
                , className =? "Google-chrome" --> doShift "β"
                , className =? "Iceweasel" --> doShift "β"
                , className =? "Emacs" --> doShift "γ"
@@ -390,8 +405,8 @@ myManageHook = composeAll [ className =? "Chromium" --> doShift "β"
                , resource =? "gpicview" --> doFloat
                , className =? "MPlayer" --> doFloat
                , resource =? "skype" --> doFloat
-               -- , className =? "VirtualBox" --> doShift "η"
-               -- , className =? "Xchat" --> doShift "ζ"
+               , className =? "VirtualBox" --> doShift "η"
+               , className =? "Xchat" --> doShift "ζ"
                , resource  =? "kdesktop"       --> doIgnore
                ]
 
@@ -436,9 +451,9 @@ myLogHook h = do
 revPP :: Handle -> PP
 revPP h = defaultPP  { ppCurrent = wrap "<fc=black,aquamarine3> " " </fc>"
                      , ppSep     = ""
-                     , ppWsSep = ""
+                     , ppWsSep   = ""
                      , ppVisible = wrap "<fc=black,DarkSlateGray4> " " </fc>"
-                     , ppLayout = \x -> " <fc=#ee9a00,black>"
+                     , ppLayout  = \x -> " <fc=#ee9a00,black>"
                                   ++ case x of
                                        "Mirror ResizableTall"   -> "MTiled"
                                        "ResizableTall"          -> "Tiled"
@@ -455,11 +470,11 @@ revPP h = defaultPP  { ppCurrent = wrap "<fc=black,aquamarine3> " " </fc>"
                      }
 
 revSolarizedPP :: Handle -> PP
-revSolarizedPP h = defaultPP  { ppCurrent = wrap "<fc=#002b36, #6c71c4> " " </fc>"
+revSolarizedPP h = defaultPP  { ppCurrent = wrap "<fc=black,#b58900> " " </fc>"
                      , ppSep        = ""
                      , ppWsSep      = ""
-                     , ppVisible    = wrap "<fc=#002b36,#b58900> " " </fc>"
-                     , ppLayout     = \x -> " <fc=#cb4b16 ,#002b36>"
+                     , ppVisible    = wrap "<fc=#black,#b58900> " " </fc>"
+                     , ppLayout     = \x -> " <fc=#cb4b16,black>"
                                   ++ case x of
                                        "Mirror ResizableTall"   -> "MTiled"
                                        "ResizableTall"          -> "Tiled"
@@ -469,9 +484,9 @@ revSolarizedPP h = defaultPP  { ppCurrent = wrap "<fc=#002b36, #6c71c4> " " </fc
                                   ++ "</fc> "
                      , ppTitle = \x -> case length x of
                                          0 -> ""
-                                         _ -> "<fc=#657b83,#002b36>" ++ shorten 30 x ++ "</fc>"
-                     , ppHiddenNoWindows = wrap "<fc=#dc322f,#002b36> " " </fc>"
-                     , ppHidden = wrap "<fc=#dc322f,#002b36> " " </fc>"
+                                         _ -> "<fc=#657b83,black>" ++ shorten 30 x ++ "</fc>"
+                     , ppHiddenNoWindows = wrap "<fc=#d33682,black> " " </fc>"
+                     , ppHidden = wrap "<fc=#6c71c4,black> " " </fc>"
                      , ppOutput = hPutStrLn h
                      }
 
@@ -504,8 +519,8 @@ myStartupHook = do safeSpawnProg "rxvt"
                    spawn "gnome-keyring-daemon --start --components=pkcs11,ssh,pgp,secrets"
                    -- spawn "xscrensaver"
                    -- safeSpawnProg "bluetooth-applet"
-                   -- spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
-                   spawn "trayer --transparent true --alpha 155 --tint #002b36 --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
+                   spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
+                   -- spawn "trayer --transparent true --alpha 155 --tint #002b36 --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
                    return ()
 
 synapticsConfig = [("CircularScrolling","1"),
@@ -553,16 +568,13 @@ main = do insertPath "PATH" "/home/rev/.local/bin"
 --
 -- defaults pipe
 defaults pipe = defaultConfig {
-      -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
         modMask            = myModMask,
         workspaces         = myWorkspaces,
-      -- normalBorderColor  = myNormalBorderColor,
-      -- focusedBorderColor = myFocusedBorderColor,
-        normalBorderColor  = solarizedNormalBorderColor,
-        focusedBorderColor = solarizedFocusedBorderColor,
+        normalBorderColor  = myNormalBorderColor,
+        focusedBorderColor = myFocusedBorderColor,
       -- defaultGaps        = myDefaultGaps,
 
       -- key bindings
@@ -570,7 +582,7 @@ defaults pipe = defaultConfig {
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = myLayout,
+        layoutHook         = myLayoutHook,
         manageHook         = myManageHook <+> manageDocks <+> myManageHookOnes,
         logHook            = myLogHook pipe,
         startupHook        = myStartupHook
