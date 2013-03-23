@@ -128,7 +128,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launch dmenu
     -- , ((modMask,               xK_x     ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
-    , ((modMask,               xK_x     ), shellPrompt defaultXPConfig)
+    , ((modMask,               xK_x     ), shellPrompt revXPConfig)
 
     -- launch gmrun
     , ((modMask .|. shiftMask, xK_x     ), spawn "gmrun")
@@ -277,9 +277,9 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- Config for Prompt
 --
 revXPConfig :: XPConfig
-revXPConfig = defaultXPConfig { font              = "xft:inconsolata-9"
+revXPConfig = defaultXPConfig { font              = "xft:monofur-9"
                               , bgColor           = "black"
-                              , fgColor           = "white"
+                              , fgColor           = solarizedYellow
                               , fgHLight          = "black"
                               , bgHLight          = "darkslategray4"
                               , borderColor       = "black"
@@ -360,7 +360,7 @@ revDarkTabTheme = defaultTheme { inactiveBorderColor = "#777"
                         }
 
 revSolarizedTheme :: Theme
-revSolarizedTheme = defaultTheme { inactiveBorderColor = "#777"
+revSolarizedTheme = defaultTheme { inactiveBorderColor = "#000"
                             , activeBorderColor = myFocusedBorderColor
                             , activeColor = solarizedYellow
                             , inactiveColor = "#444"
@@ -390,24 +390,28 @@ revSolarizedTheme = defaultTheme { inactiveBorderColor = "#777"
 myManageHookOnes = composeOne [ isFullscreen -?> doFullFloat
                                 , isDialog     -?> doCenterFloat ]
 
-myManageHook = composeAll [ className =? "Chromium" --> doShift "β"
-               , resource =? "desktop_window" --> doIgnore
-               , className =? "Gimp" --> doShift "ι"
+myManageHook = composeAll [ resource =? "desktop_window" --> doIgnore
+               , resource  =? "kdesktop"       --> doIgnore
+               , className =? "Chromium" --> doShift "β"
                , className =? "Google-chrome" --> doShift "β"
                , className =? "Iceweasel" --> doShift "β"
                , className =? "Emacs" --> doShift "γ"
                , className =? "Sublime" --> doShift "γ"
                , className =? "Eclipse" --> doShift "γ"
+               , className =? "ADT" --> doShift "γ"
                , className =? "DrRacket" --> doShift "γ"
                , className =? "Xpdf" --> doShift "δ"
                , className =? "Evince" --> doShift "δ"
                , className =? "Vlc" --> doShift "ε"
                , resource =? "gpicview" --> doFloat
                , className =? "MPlayer" --> doFloat
-               , resource =? "skype" --> doFloat
+               , className =? "MPlayer" --> doShift "ε"
+               , className =? "kile" --> doShift "ζ"
                , className =? "VirtualBox" --> doShift "η"
-               , className =? "Xchat" --> doShift "ζ"
-               , resource  =? "kdesktop"       --> doIgnore
+               , resource =? "skype" --> doFloat
+               , resource =? "skype" --> doShift "θ"
+               , className =? "Xchat" --> doShift "θ"
+               , className =? "Gimp" --> doShift "ι"
                ]
 
 -- Lookup Cheatsheet
@@ -506,15 +510,14 @@ shorten n xs | length xs < n = xs
 -- By default, do nothing.
 myStartupHook = do safeSpawnProg "rxvt"
                    safeSpawnProg "start-pulseaudio-x11"
-                   -- spawn "gnome-sound-applet"
+                   spawn "gnome-sound-applet"
                    safeSpawnProg "xmobar"
                    safeSpawnProg "gnome-power-manager"
                    safeSpawnProg "nm"
                    safeSpawnProg "nm-applet"
-                   safeSpawnProg "checkgmail"
-                   safeSpawnProg "checkgmail"
-                   spawn "dropbox start"
-                   spawn "emacs --daemon"
+                   -- safeSpawnProg "checkgmail"
+                   -- spawn "dropbox start"
+                   -- spawn "emacs --daemon"
                    mapM_ spawn (configureSynaptics synapticsConfig)
                    safeSpawnProg "gnome-settings-daemon"
                    safeSpawnProg "gnome-screensaver"
@@ -522,7 +525,6 @@ myStartupHook = do safeSpawnProg "rxvt"
                    -- spawn "xscrensaver"
                    -- safeSpawnProg "bluetooth-applet"
                    spawn "trayer --transparent true --alpha 0 --tint black --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
-                   -- spawn "trayer --transparent true --alpha 155 --tint #002b36 --widthtype pixel --width 82 --edge top --distance 0 --align right --margin 0 --height 19 --heighttype pixel --SetDockType true --SetPartialStrut true --expand true"
                    return ()
 
 synapticsConfig = [("CircularScrolling","1"),

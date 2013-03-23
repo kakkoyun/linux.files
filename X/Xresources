@@ -56,12 +56,13 @@ URxvt*fading:           40
 ! Fonts
 !URxvt.allow_bold:       false
 !URxvt.font:             xft:inconsolata:size=10
-URxvt*font:  xft:inconsolata:size=10:antialias=true
+URxvt*font:  xft:inconsolata:size=12:antialias=true
 !URxvt.font: xft:inconsolata:bold:size=12
 !URxvt*font: cmatrix:size=12x24
 !URxvt.font: -*-terminus-medium-r-normal-*-12-120-72-72-c-60-iso8859-1
+!URxvt*font: xft:Monaco:pixelsize=14
+!URxvt*font: xft:Source Code Pro:pixelsize=14
 !URxvt*font: xft:Monospace:pixelsize=14
-!URxvt*boldFont: xft:Monospace:pixelsize=14
 
 ! Fix font space
 URxvt*letterSpace:      -1
@@ -138,9 +139,11 @@ URxvt.pointerBlank:         true
 #define S_green         #859900
 
 ! Background Colors:
+
 *background:            S_base03
-!*background:            [85]S_base03
+!*background:            [85]S_base02
 !*background:            rgba:0000/0043/0054/dddd
+!*background:            black
 *foreground:            S_base00
 *fadeColor:             S_base03
 *tintColor:             S_base01
