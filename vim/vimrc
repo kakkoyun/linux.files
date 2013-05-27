@@ -1,0 +1,104 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                          "
+" Vim configuration                                        "
+" Thanks to Eren <turkay.eren .-. gmail.com>               "
+"                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call pathogen#infect() 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                          "
+" Plugin definitions                                       "
+"                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has("syntax")
+    syntax on
+endif
+
+if has("autocmd")
+    filetype plugin indent on
+    filetype plugin on
+endif
+
+set background=dark
+let g:solarized_termtrans = 1
+colorscheme solarized
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                          "
+" Useful configurations                                    "
+"                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set t_Co=256                    " allow 256 color
+set autoindent
+set ruler                       " show line and column number
+set wildmenu                    " command line tab completion, more superior
+set history=100                 " Number of lines of command line history.
+set hlsearch                    " highlight search
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set cursorline                  " highlight current line
+set expandtab
+set ls=2                        " show status line, required for Powerline
+set rnu                         " relative numbering
+:highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                          "
+" Variable definitions                                     "
+"                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let mapleader = "\\"             " leader map for easy keybinding
+let g:mapleader = "\\"
+let g:EasyMotion_leader_key = '\\' 
+let g:ctrlp_map = '<leader>p'
+let g:zenburn_high_Contrast=1
+let g:NERDTreeShowRelativeLineNumbers = 1
+let g:NERDTreeDirArrows = 1
+let g:NERDSpaceDelims = 1
+"let Tlist_Use_Right_Window=1
+"let Tlist_WinWidth=35
+"let Tlist_Exit_OnlyWindow=1
+"let Tlist_File_Fold_Auto_Close=1
+let tagbar_autoshowtag=1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                          "
+" Keybindings                                              "
+"                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <C-P> <ESC> :tabp<CR>             " tab configuration
+map <C-N> <ESC> :tabn<CR>
+nmap <leader>a :w!<CR>
+nmap <leader>q :q!<cr>
+nmap <leader>wq :wqa!<cr>
+nmap <leader>h :HeaderguardAdd<cr>
+nmap <leader>1 :NERDTreeToggle<CR>
+nmap <leader>2 :TagbarToggle<CR>
+nmap <leader>3 :GundoToggle<CR>
+"map <F3> :TlistToggle<CR>
+inoremap jk <esc>
+
+command -nargs=0 -bar Now execute "normal! a\<C-R>=strftime(\"%Y-%m-%d %a %I:%M %p\")\<CR>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                                          "
+" Auto commands for file types                             "
+"                                                          "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Automatically open tagbar for filetypes
+"au BufNewFile,BufRead *.java,*.py,*.c,*.rb TagbarToggle
+" Set tw=72 for text files
+"au BufRead,BufNewFile *.txt,*.php set tw=80
+set tw=72
+set cc=72
+
+autocmd FileType php inoremap <C-K> <ESC>:call PhpDocSingle()<CR>i
+autocmd FileType php nnoremap <C-K> :call PhpDocSingle()<CR>
+autocmd FileType php vnoremap <C-K> :call PhpDocRange()<CR> 

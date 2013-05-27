@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/Users/eren/sourcebox/oe/openembedded-core.git/meta/recipes-graphics/freetype/freetype-2.4.10'
+let g:netrw_dirhist_2='/Users/eren/removeMe/eren/js'
+let g:netrw_dirhist_3='/Applications/MAMP/htdocs/suslusozluk/trunk/app/Config'
+let g:netrw_dirhist_4='/private/tmp/foo'
+let g:netrw_dirhist_5='/Users/eren/.vim/bundle/nerdtree/nerdtree_plugin'
+let g:netrw_dirhist_6='/Users/eren/sourcebox/lk/make'
+let g:netrw_dirhist_7='/Users/eren/.oh-my-zsh/plugins/gitfast'
+let g:netrw_dirhist_8='/Users/eren/.oh-my-zsh'
