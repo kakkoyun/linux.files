@@ -1,4 +1,4 @@
 dotfiles
 ========
 
-Configuration Files of GNU/Linux Systems.
+Configuration Files of my based GNU/Linux Systems.
